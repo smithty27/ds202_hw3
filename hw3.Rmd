@@ -1,0 +1,92 @@
+---
+title: "Homework #3"
+author: "Tyler Smith, smithty27"
+date: "February 15, 2020"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(reshape2)
+tips2 <- tips
+?tips
+```
+
+```{r}
+#Problem 1
+numParty <- nrow(tips2)
+numParty
+```
+
+```{r}
+#Part 2
+str(tips2)
+```
+## Problem 2
+The data frame includes three numeric variables and four factor variables. The numeric variables include on integer value (size of party) and the factor variables are mostly binary, with the exception of day.  
+  
+```{r}
+#Problem 3
+day <- tips2$day
+y <- c("Thur","Fri","Sat","Sun")
+day <- day[order(match(day,y))]
+day
+```
+
+```{r}
+#Problem 4
+female5 <- tips2[(tips2$sex == "Female") & (tips2$size >= 5),]
+female5
+```
+
+```{r}
+#Problem 5
+library(ggplot2)
+ggplot(data=tips2,aes(x=total_bill,y=tip))+geom_point()
+```
+
+##Problem 5
+You can see a clear pattern between total bill and the tip. As the total bill goes up, the variability of the tip also increases. In general there is a positive, linear trend in the data.
+  
+    
+##Problem 6
+There are a couple outliers in the data. There was one tip that was 5 dollars when the bill was under 10, but also one that was virtually zero with a bill over 30 dollars. These simply show that there is wide variability in the tip amount, even with a high bill total.  
+  
+
+```{r}
+#Problem 7
+tips2$tiprate <- tips2$tip/tips2$total_bill
+mean(tips2$tiprate)
+```
+    
+##Problem 7
+The mean value of this new variable is 0.161. This means that the average tip percentage is 16.1 percent of the total bill.  
+  
+  
+```{r}
+#Problem 8
+ggplot(data=tips2,aes(x=time,y=tiprate))+geom_boxplot()
+```
+
+##Problem 8
+The boxplot reveals that tip rates have much more variability at dinner as opposed to lunch. Both means appear similar, but dinner had many more outliers towards the top, while also seeing some zeroes included.  
+  
+```{r}
+#Problem 9
+tips2$ss <- paste(tips2$sex,tips2$smoker)
+qplot(total_bill,tiprate,data=tips2,color=ss)
+```
+
+#Problem 9
+From my initial observation, it appears that male smokers tend to tip slightly lower than male non-smokers. On the flip side, female smokers appear to tip better than female non-smokers. The three highest tip rates were by male smokers.  
+  
+  
+```{r}
+#Problem 10
+ggplot(data=tips2,aes(x=day,color=sex))+geom_bar()
+```
+
+##Problem 10
+Above is the plot. You can see that it's roughly split between the sexes on Thursday and Friday, but the weekend provides mostly males as the billpayer.
