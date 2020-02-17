@@ -11,7 +11,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(reshape2)
 tips2 <- tips
-?tips
 ```
 
 ```{r}
@@ -85,7 +84,7 @@ From my initial observation, it appears that male smokers tend to tip slightly l
   
 ```{r}
 #Problem 10
-ggplot(data=tips2,aes(x=day,color=sex))+geom_bar()
+ggplot(data=tips2,aes(x=day,fill=sex))+geom_bar()
 ```
 
 ##Problem 10
